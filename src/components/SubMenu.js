@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 const SidebarLink = styled(Link)`
   display: flex;
@@ -11,7 +11,24 @@ const SidebarLink = styled(Link)`
   list-style: none;
   height: 60px;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 14px;
+
+  &:hover {
+    background: #252831;
+    border-left: 4px solid #632ce4;
+    cursor: pointer;
+  }
+`;
+const SidebarContent = styled.div`
+  display: flex;
+  color: #e1e9fc;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  list-style: none;
+  height: 60px;
+  text-decoration: none;
+  font-size: 14px;
 
   &:hover {
     background: #252831;
@@ -32,10 +49,10 @@ const DropdownLink = styled(Link)`
   align-items: center;
   text-decoration: none;
   color: #f5f5f5;
-  font-size: 18px;
+  font-size: 14px;
 
   &:hover {
-    background: #632ce4;
+    background: #434343;
     cursor: pointer;
   }
 `;
@@ -47,19 +64,35 @@ const SubMenu = ({ item }) => {
 
   return (
     <>
-      <SidebarLink to={item.path} onClick={item.subNav && showSubnav}>
-        <div>
-          {item.icon}
-          <SidebarLabel>{item.title}</SidebarLabel>
-        </div>
-        <div>
-          {item.subNav && subnav
-            ? item.iconOpened
-            : item.subNav
-            ? item.iconClosed
-            : null}
-        </div>
-      </SidebarLink>
+      {item.path ? (
+        <SidebarLink to={item.path} onClick={item.subNav && showSubnav}>
+          <div>
+            {item.icon}
+            <SidebarLabel>{item.title}</SidebarLabel>
+          </div>
+          <div>
+            {item.subNav && subnav
+              ? item.iconOpened
+              : item.subNav
+              ? item.iconClosed
+              : null}
+          </div>
+        </SidebarLink>
+      ) : (
+        <SidebarContent onClick={item.subNav && showSubnav}>
+          <div>
+            {item.icon}
+            <SidebarLabel>{item.title}</SidebarLabel>
+          </div>
+          <div>
+            {item.subNav && subnav
+              ? item.iconOpened
+              : item.subNav
+              ? item.iconClosed
+              : null}
+          </div>
+        </SidebarContent>
+      )}
       {subnav &&
         item.subNav.map((item, index) => {
           return (
